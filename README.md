@@ -1,10 +1,12 @@
-1. Make sure pipenv is installed by running the command: pipenv --version
-    - if its not installed, run the command: brew install pipenv
+## How to run this program
 
-2. Create a .env file in the root of the project directory
-    use the .env.sample file to see what is needed in the .env file
+1. Make sure pipenv is installed by running the command: **pipenv --version**
+    - if its not installed, run the command: **brew install pipenv**
 
-3. run the command in the root of the project directory: pipenv install
+2. Create a **.env** file in the root of this project directory
+    - use the **.env.sample** file to see what is needed in the .env file
+
+3. run the command in the root of the project directory: **pipenv install**
     - this will install all the dependencies needed to run this script.
 
-4. run the script: python3 script.py
+4. run the script: **python3 script.py**
