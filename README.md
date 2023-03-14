@@ -11,6 +11,6 @@
     ```
 
 3. Run the command in the root of the project directory: **pipenv install**
-    - this will install all the dependencies needed to run this script.
+    - This will install all script dependencies.
 
 4. Run the script: **python3 script.py**
