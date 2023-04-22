@@ -2,7 +2,7 @@
 from PyHelper import Helper
 
 # The default name of the helper class is 'Frank', but it can be set to any name.
-alexa = Helper(name = 'Alexa')
+alexa = Helper(name = 'Alexa', path = 'file_name_here')
 
 # Give a quick audio greeting.
 alexa.say_hello()
