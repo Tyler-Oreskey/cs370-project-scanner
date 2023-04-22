@@ -1,5 +1,6 @@
-import speech_recognition as sr
+# import speech_recognition as sr
 import pyttsx3 as tts
+import speech_recognition as sr
 
 ### This is a helper class that provides both text-to-speech and speech-to-texts methods. ###
 class Helper:
@@ -7,15 +8,14 @@ class Helper:
     listener = sr.Recognizer()
     engine = tts.init()
     voices = engine.getProperty('voices')
-    voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_ZIRA_11.0"
-    engine.setProperty('voice', voice_id)
+    engine.setProperty('voice', voices[1].id)
     
     def __init__(self, name = 'Alexa'):
         self.name = name
         self.lower_name = self.name.lower()
 
-   # Converts input auto from the microphone to text, and returns that text as a string.
-   # Outputs in the terminal what it hears from the mic if feedback is set to True. 
+#    Converts input audio from the microphone to text, and returns that text as a string.
+#    Outputs in the terminal what it hears from the mic if feedback is set to True. 
     def listen_for_command(self, feedback = False):
         try:
             with sr.Microphone() as source:
@@ -56,7 +56,7 @@ class Helper:
     # Method to print the available voices to the terminal.
     def print_voices(self) :
         for voice in self.voices:
-            # to get the info. about various voices in our PC 
+            # to get the info about various voices in our PC 
             print("Voice:")
             print("ID: %s" %voice.id)
             print("Name: %s" %voice.name)
