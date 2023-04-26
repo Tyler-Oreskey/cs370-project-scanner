@@ -10,7 +10,12 @@ class Helper:
     language = 'en'
     listener = sr.Recognizer()
     media_player = vlc.MediaPlayer()
-    done_listening = True    # a public data member to see if the class is currently playing an audio clip. can be used to control whether or not a clip should play while alexa is also listening.
+    #a public data member to see if the class is currently playing an audio clip.
+    #Can be used to control whether or not a clip should play while alexa is also listening.
+    done_listening = True
+    duration = 0
+    
+    
 
     def __init__(self, name = 'Alexa', path = 'audofile_path'):
         self.name = name
@@ -57,8 +62,8 @@ class Helper:
 
         time.sleep(0.1) # sleep here so that the class has time to start playing before we check it's status in the while loop below.
 
-        #while self.media_player.is_playing() == 1 or self.done_listening != True:
-        while self.media_player.is_playing() == 1:
+        while self.media_player.is_playing() == 1 or self.done_listening != True:
+        #while self.media_player.is_playing() == 1:
             time.sleep(0.01) # check to see if a clip is already playing, and sleep for a short amount of time if so.
 
         if feedback == True:
@@ -71,6 +76,15 @@ class Helper:
         self.media_player.set_media(self.media)
         self.media_player.play()
         time.sleep(0.1) # sleep here again to give the class time to play the clip.
+        self.duration = self.media_player.get_length()
+        self.duration = self.duration/1000 - 0.5
+        
+        # If the clip is short enough, don't wait at all after playing it. Otherwise, have the class sleep for a ittle less than the duration of the audio clip.
+        if (self.duration < 0):
+            # do nothing here
+            self.duration = 0
+        else:
+            time.sleep(self.duration)
 
     # Method to give a quick friendly audio message and say the name of the helper object.
     def say_hello(self):
