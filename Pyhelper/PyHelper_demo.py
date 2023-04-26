@@ -1,5 +1,6 @@
 # This is the updated Helper class demo from the PyHelper2 module.
 from PyHelper2 import Helper
+import mute_alsa
 
 # The default name of the helper class is 'Alexa', but it can be set to any name.
 alex = Helper(name = 'alex', path = '/home/tpores/Desktop/say_this.mp3')

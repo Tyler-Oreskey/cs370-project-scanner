@@ -27,6 +27,7 @@ Import:
 to import the helper class:
 
     from PyHelper2 import Helper
+    import mute_alsa
 
 _______________________________________________________________________________________________________________
 Methods:
