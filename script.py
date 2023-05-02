@@ -32,7 +32,12 @@ def post_req(url, payload):
 
 def main():
 
+    talking_class.say_hello()
+
     while True:
+
+        talking_class("Ok, Please scan an item.")
+
         upc_code = scan_upc_code()
         res = get_req(BASE_URL + '/product/upc/' + upc_code)
 
@@ -44,9 +49,9 @@ def main():
             answer = talking_class.listen_for_command(feedback=True)
             if answer.startswith('yes') or answer.startswith('yeah'):
                 while True:
-                    talking_class.say_this("What is the name of the product you would like to add?", feedback=True)
+                    talking_class.say_this("Ok, What is the name of the product you would like to add?", feedback=True)
                     item_to_add = talking_class.listen_for_command(feedback=True)
-                    talking_class.say_this("The item you would like to add is " + item_to_add + ", is that correct?", feedback=True)
+                    talking_class.say_this("Ok, the item you would like to add is " + item_to_add + ", is that correct?", feedback=True)
                     answer = talking_class.listen_for_command(feedback=True)
                     if answer.startswith('yes') or answer.startswith('yeah'):
                         break
@@ -54,9 +59,12 @@ def main():
                 posted = post_req(BASE_URL + '/product', payload)
                 if posted == None: return
 
-                if posted.status_code < 200 or res.status_code > 299 :
+                if posted.status_code < 200 or posted.status_code > 299 :
                     print('Post request failed with status code: ', posted.status_code, '\n', 'message: ', posted.text)
-                    return
+                    talking_class.say_this("hm. Sorry there was a problem adding that item.")
+                    continue
+
+                talking_class.say_this("Ok, your item was succesfully added!")
 
         elif res.status_code < 200 or res.status_code > 299 :
             print('Get request failed with status code: ', res.status_code, '\n', 'message: ', res.text)
