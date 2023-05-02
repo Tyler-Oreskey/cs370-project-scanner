@@ -36,7 +36,7 @@ def main():
 
     while True:
 
-        talking_class("Ok, Please scan an item.")
+        talking_class.say_this("Ok, Please scan an item.")
 
         upc_code = scan_upc_code()
         res = get_req(BASE_URL + '/product/upc/' + upc_code)
