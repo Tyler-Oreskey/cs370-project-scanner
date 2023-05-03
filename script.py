@@ -8,7 +8,7 @@ load_dotenv()
 
 BASE_URL = os.getenv('BASE_URL')
 
-talking_class = Helper(name = "Item Scanner", path = '/home/tpores/Desktop/say_this.mp3')
+talking_class = Helper(name = "alex", path = '/home/tpores/Desktop/say_this.mp3')
 
 # scan and return upc code
 def scan_upc_code():
@@ -36,7 +36,7 @@ def main():
 
     while True:
 
-        talking_class.say_this("Ok, Please scan an item.")
+        talking_class.say_this("Please scan an item.")
 
         upc_code = scan_upc_code()
         res = get_req(BASE_URL + '/product/upc/' + upc_code)
@@ -77,8 +77,10 @@ def main():
 
         talking_class.say_this("Would you like to scan another item?", feedback=True)
         answer = talking_class.listen_for_command(feedback=True)
-        if answer.startswith('no'):
-            talking_class.say_this("Ok, Goodbye!")
+        if answer.startswith('yes') or answer.startswith('yeah'):
+            continue
+        else:
+            talking_class.say_this('Ok, Goodbye!')
             break
 
 if __name__ == '__main__':
