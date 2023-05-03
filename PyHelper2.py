@@ -2,7 +2,6 @@ import speech_recognition as sr
 from gtts import gTTS
 import vlc
 import time
-import mute_alsa # mudule needed to mute unneeded alsa warnings.
 
 ### This is a helper class that provides both text-to-speech and speech-to-texts methods. ###
 class Helper:
@@ -31,10 +30,13 @@ class Helper:
         self.done_listening = False
 
         try:
+            # Capture Audio from the default microphone
             with sr.Microphone() as source:
                 print(self.name + ': Listening...')
+                # Filter out bachground noise.
                 audio = self.listener.adjust_for_ambient_noise(source)
                 audio = self.listener.listen(source)
+                # Send the audio to Google Speech Recognition API
                 command = self.listener.recognize_google(audio)
                 command = command.lower()
 
@@ -54,7 +56,10 @@ class Helper:
         except sr.RequestError as e:
             print("Request from Google speech recognition service failed; {0}".format(e))
         finally:
+            # Indicate that the program is done listening.
             self.done_listening = True
+            
+            # Return the command that was heard.
         return command
     
    # Plays text input as audio, and outputs in the terminal what its trying to say if feedback is set to True.
@@ -69,6 +74,7 @@ class Helper:
         if feedback == True:
             print(self.name + ': saying: ' + '"' + text + '."')
         
+        # Get the adudio
         speech = gTTS(text, lang = self.language, slow = False)
         speech.save(self.audio_path)
 
